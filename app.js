@@ -1,9 +1,92 @@
-import {problems} from './problems.js'
-import {loadRuntime} from './pyodide.js'
-import {validateProblem} from './validator.js'
-import {renderProblem,setOutput,setCoins} from './ui.js'
-import {getCoins,addCoin} from './storage.js'
-import {setupAuth} from './auth.js'
+import { problems } from "./problems.js"
+import { setupAuth } from "./auth.js"
+import { loadRuntime, runCode } from "./pyodide.js"
+import { renderProblem, setOutput, setCoins, setStreak } from "./ui.js"
+import { validate } from "./validator.js"
+import { getCoins, addCoin, getStreak, increaseStreak } from "./storage.js"
+
 let currentProblem
-function nextProblem(){currentProblem=problems[Math.floor(Math.random()*problems.length)];renderProblem(currentProblem)}
-async function initialize(){setOutput('Loading Pyodide...');await setupAuth();await loadRuntime();setCoins(getCoins());nextProblem();setOutput('PyProdigy ready',true)}initialize();document.getElementById('runBtn').addEventListener('click',()=>setOutput('Run mode coming soon',true));document.getElementById('hintBtn').addEventListener('click',()=>setOutput(currentProblem.hint,true));document.getElementById('checkBtn').addEventListener('click',async()=>{const code=document.getElementById('editor').value;setOutput('Running tests...');const result=await validateProblem(currentProblem,code);if(result.success){const coins=addCoin();setCoins(coins);setOutput(`✅ ${result.message}\n+1 PyCoin`,true);setTimeout(()=>nextProblem(),1000)}else{setOutput(`❌ ${result.message}`)}})
+
+function randomProblem(){
+return problems[Math.floor(Math.random()*problems.length)]
+}
+
+function nextProblem(){
+currentProblem=randomProblem()
+renderProblem(currentProblem)
+}
+
+async function init(){
+
+setOutput("Loading Pyodide...")
+
+await setupAuth()
+await loadRuntime()
+
+setCoins(getCoins())
+setStreak(getStreak())
+
+nextProblem()
+
+setOutput("PyProdigy ready",true)
+
+}
+
+init()
+
+document.getElementById("hintBtn").onclick=()=>{
+setOutput(currentProblem.hint,true)
+}
+
+document.getElementById("skipBtn").onclick=()=>{
+nextProblem()
+setOutput("Skipped",true)
+}
+
+document.getElementById("runBtn").onclick=async()=>{
+
+try{
+
+const code=document.getElementById("editor").value
+
+await runCode(code)
+
+setOutput("Code executed",true)
+
+}catch(error){
+
+setOutput(error.toString())
+
+}
+
+}
+
+document.getElementById("checkBtn").onclick=async()=>{
+
+const code=document.getElementById("editor").value
+
+setOutput("Running tests...")
+
+const result=await validate(currentProblem,code)
+
+if(result.success){
+
+const coins=addCoin()
+const streak=increaseStreak()
+
+setCoins(coins)
+setStreak(streak)
+
+setOutput(`✅ ${result.message}\n+1 PyCoin`,true)
+
+setTimeout(()=>{
+nextProblem()
+},1200)
+
+}else{
+
+setOutput(`❌ ${result.message}`)
+
+}
+
+}

@@ -1,1 +1,23 @@
-export async function setupAuth(){await Clerk.load();const auth=document.getElementById('auth');if(Clerk.user){auth.innerHTML=`<div class="coin-box">${Clerk.user.firstName||'Player'}</div>`}else{const button=document.createElement('button');button.textContent='Sign In';button.onclick=()=>Clerk.openSignIn();auth.appendChild(button)}}
+export async function setupAuth(){
+await Clerk.load()
+
+const auth=document.getElementById("auth")
+
+if(Clerk.user){
+auth.innerHTML=`
+<div class="badge">
+👤 ${Clerk.user.firstName||"Player"}
+</div>
+`
+}else{
+const button=document.createElement("button")
+
+button.textContent="Sign In"
+
+button.onclick=()=>{
+Clerk.openSignIn()
+}
+
+auth.appendChild(button)
+}
+}

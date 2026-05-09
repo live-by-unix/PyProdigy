@@ -1,56 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyProdigy</title>
-  <link rel="stylesheet" href="style.css" />
-  <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_Y2FwYWJsZS1zbG90aC01LmNsZXJrLmFjY291bnRzLmRldiQ" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PyProdigy</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+
+<script
+async
+crossorigin="anonymous"
+data-clerk-publishable-key="YOUR_CLERK_PUBLISHABLE_KEY"
+src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
+</script>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
 </head>
+
 <body>
-  <div class="app">
-    <header>
-      <div>
-        <h1>PyProdigy</h1>
-        <p class="subtitle">Level up your Python skills</p>
-      </div>
-      <div class="topbar">
-        <div class="coin-box">🪙 <span id="coinCount">0</span></div>
-        <div id="auth"></div>
-      </div>
-    </header>
+<div class="container">
 
-    <main>
-      <section class="problem-card">
-        <div class="problem-top">
-          <span id="difficultyBadge">Beginner</span>
-          <span id="categoryBadge">Arrays</span>
-        </div>
+<header>
+<div>
+<h1>PyProdigy</h1>
+<p>Gamified Python practice</p>
+</div>
 
-        <h2 id="problemTitle"></h2>
-        <p id="problemDescription"></p>
+<div class="top">
+<div class="badge">🪙 <span id="coins">0</span></div>
+<div class="badge">🔥 <span id="streak">0</span></div>
+<div id="auth"></div>
+</div>
+</header>
 
-        <div class="example-box">
-          <h3>Example</h3>
-          <pre id="problemExample"></pre>
-        </div>
-      </section>
+<div class="layout">
 
-      <section class="editor-card">
-        <textarea id="editor"></textarea>
+<section class="left">
+<div class="problem-header">
+<span id="difficulty"></span>
+<span id="category"></span>
+</div>
 
-        <div class="actions">
-          <button id="runBtn">Run</button>
-          <button id="checkBtn">Check</button>
-          <button id="hintBtn">Hint</button>
-        </div>
+<h2 id="title"></h2>
 
-        <div id="output"></div>
-      </section>
-    </main>
-  </div>
+<p id="description"></p>
 
-  <script type="module" src="app.js"></script>
+<div class="example">
+<h3>Example</h3>
+<pre id="example"></pre>
+</div>
+
+<button id="hintBtn">Hint</button>
+</section>
+
+<section class="right">
+<textarea id="editor"></textarea>
+
+<div class="buttons">
+<button id="runBtn">Run</button>
+<button id="checkBtn">Check</button>
+<button id="skipBtn">Skip</button>
+</div>
+
+<div id="output"></div>
+</section>
+
+</div>
+</div>
+
+<script type="module" src="app.js"></script>
 </body>
 </html>
