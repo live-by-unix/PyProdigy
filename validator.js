@@ -1,0 +1,2 @@
+import {runPython} from './pyodide.js'
+export async function validateProblem(problem,userCode){try{await runPython(userCode);for(let i=0;i<25;i++){const input=problem.generateTest();const expected=problem.referenceSolution(input);window.__testInput=input;const result=await runPython(`solve(__testInput)`);if(JSON.stringify(result)!==JSON.stringify(expected)){return{success:false,message:`Expected ${JSON.stringify(expected)} but got ${JSON.stringify(result)}`}}}return{success:true,message:'All tests passed'}}catch(error){return{success:false,message:error.toString()}}}
