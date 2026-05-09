@@ -1,5 +1,5 @@
 export function getCoins(){
-return Number(localStorage.getItem("pycoins")||0)
+return Number(localStorage.getItem("pycoins") || 0)
 }
 
 export function addCoin(){
@@ -9,7 +9,7 @@ return coins
 }
 
 export function getStreak(){
-return Number(localStorage.getItem("streak")||0)
+return Number(localStorage.getItem("streak") || 0)
 }
 
 export function increaseStreak(){

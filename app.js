@@ -8,39 +8,51 @@ import { getCoins, addCoin, getStreak, increaseStreak } from "./storage.js"
 let currentProblem
 
 function randomProblem(){
+
 return problems[Math.floor(Math.random()*problems.length)]
+
 }
 
 function nextProblem(){
+
 currentProblem=randomProblem()
+
 renderProblem(currentProblem)
+
 }
 
 async function init(){
 
-setOutput("Loading Pyodide...")
+setOutput("Loading runtime...")
 
 await setupAuth()
+
 await loadRuntime()
 
 setCoins(getCoins())
+
 setStreak(getStreak())
 
 nextProblem()
 
-setOutput("PyProdigy ready",true)
+setOutput("PyProdigy Ready",true)
 
 }
 
 init()
 
 document.getElementById("hintBtn").onclick=()=>{
+
 setOutput(currentProblem.hint,true)
+
 }
 
 document.getElementById("skipBtn").onclick=()=>{
+
 nextProblem()
-setOutput("Skipped",true)
+
+setOutput("Problem skipped",true)
+
 }
 
 document.getElementById("runBtn").onclick=async()=>{
@@ -51,7 +63,7 @@ const code=document.getElementById("editor").value
 
 await runCode(code)
 
-setOutput("Code executed",true)
+setOutput("Code executed successfully",true)
 
 }catch(error){
 
@@ -65,22 +77,36 @@ document.getElementById("checkBtn").onclick=async()=>{
 
 const code=document.getElementById("editor").value
 
-setOutput("Running tests...")
+if(!code.includes("def solve")){
+
+setOutput("You must define solve()",false)
+
+return
+
+}
+
+setOutput("Running stress tests...")
 
 const result=await validate(currentProblem,code)
 
 if(result.success){
 
 const coins=addCoin()
+
 const streak=increaseStreak()
 
 setCoins(coins)
+
 setStreak(streak)
 
-setOutput(`✅ ${result.message}\n+1 PyCoin`,true)
+setOutput(`✅ ${result.message}
+
++1 PyCoin`,true)
 
 setTimeout(()=>{
+
 nextProblem()
+
 },1200)
 
 }else{

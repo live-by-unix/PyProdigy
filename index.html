@@ -2,41 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PyProdigy</title>
-<link rel="icon" href="favicon.svg">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
 
 <script
-async
-crossorigin="anonymous"
-data-clerk-publishable-key="pk_test_Y2FwYWJsZS1zbG90aC01LmNsZXJrLmFjY291bnRzLmRldiQ"
-src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
+  async
+  crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_Y2FwYWJsZS1zbG90aC01LmNsZXJrLmFjY291bnRzLmRldiQ"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
 </script>
 
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
 </head>
 
 <body>
+
 <div class="container">
 
 <header>
 <div>
 <h1>PyProdigy</h1>
-<p>Gamified Python practice</p>
+<p>Gamified Python learning</p>
 </div>
 
-<div class="top">
-<div class="badge">🪙 <span id="coins">0</span></div>
-<div class="badge">🔥 <span id="streak">0</span></div>
+<div class="topbar">
+<div class="pill">🪙 <span id="coins">0</span></div>
+<div class="pill">🔥 <span id="streak">0</span></div>
 <div id="auth"></div>
 </div>
 </header>
 
 <div class="layout">
 
-<section class="left">
-<div class="problem-header">
+<section class="problem-card">
+
+<div class="badges">
 <span id="difficulty"></span>
 <span id="category"></span>
 </div>
@@ -45,15 +48,17 @@ src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
 
 <p id="description"></p>
 
-<div class="example">
+<div class="example-box">
 <h3>Example</h3>
 <pre id="example"></pre>
 </div>
 
 <button id="hintBtn">Hint</button>
+
 </section>
 
-<section class="right">
+<section class="editor-card">
+
 <textarea id="editor"></textarea>
 
 <div class="buttons">
@@ -63,11 +68,14 @@ src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
 </div>
 
 <div id="output"></div>
+
 </section>
 
 </div>
+
 </div>
 
 <script type="module" src="app.js"></script>
+
 </body>
 </html>
