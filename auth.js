@@ -1,8 +1,8 @@
 export async function setupAuth() {
 
-  const auth = document.getElementById("auth")
-
   await Clerk.load()
+
+  const auth = document.getElementById("auth")
 
   if (Clerk.user) {
 
@@ -14,23 +14,13 @@ export async function setupAuth() {
 
   } else {
 
-    const button = document.createElement("button")
+    const container = document.createElement("div")
 
-    button.textContent = "Sign In"
+    container.id = "clerk-auth"
 
-    button.onclick = async () => {
+    auth.appendChild(container)
 
-      await Clerk.openSignIn({
-        appearance: {
-          variables: {
-            colorPrimary: "#2563eb"
-          }
-        }
-      })
-
-    }
-
-    auth.appendChild(button)
+    Clerk.mountSignIn(container)
 
   }
 
