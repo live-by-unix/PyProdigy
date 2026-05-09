@@ -1,34 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PyProdigy</title>
-
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
-
-<script
-  async
-  crossorigin="anonymous"
-  data-clerk-publishable-key="pk_test_Y2FwYWJsZS1zbG90aC01LmNsZXJrLmFjY291bnRzLmRldiQ"
-  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
-</script>
-
+<script async crossorigin="anonymous" data-clerk-publishable-key="YOUR_CLERK_PUBLISHABLE_KEY" src="https://unpkg.com/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
 </head>
-
 <body>
-
-<div class="container">
-
+<div class="app">
 <header>
 <div>
 <h1>PyProdigy</h1>
-<p>Gamified Python learning</p>
+<p>Gamified Python Learning</p>
 </div>
-
-<div class="topbar">
+<div class="stats">
 <div class="pill">🪙 <span id="coins">0</span></div>
 <div class="pill">🔥 <span id="streak">0</span></div>
 <div id="auth"></div>
@@ -36,46 +24,30 @@
 </header>
 
 <div class="layout">
-
-<section class="problem-card">
-
-<div class="badges">
+<section class="card">
+<div class="tags">
 <span id="difficulty"></span>
 <span id="category"></span>
 </div>
-
 <h2 id="title"></h2>
-
 <p id="description"></p>
-
-<div class="example-box">
-<h3>Example</h3>
+<div class="example">
 <pre id="example"></pre>
 </div>
-
 <button id="hintBtn">Hint</button>
-
 </section>
 
-<section class="editor-card">
-
+<section class="card">
 <textarea id="editor"></textarea>
-
 <div class="buttons">
 <button id="runBtn">Run</button>
 <button id="checkBtn">Check</button>
 <button id="skipBtn">Skip</button>
 </div>
-
 <div id="output"></div>
-
 </section>
-
 </div>
-
 </div>
-
 <script type="module" src="app.js"></script>
-
 </body>
 </html>
