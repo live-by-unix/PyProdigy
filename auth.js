@@ -1,43 +1,37 @@
-export async function setupAuth(){
+export async function setupAuth() {
 
-const auth=document.getElementById("auth")
+  const auth = document.getElementById("auth")
 
-try{
+  await Clerk.load()
 
-await Clerk.load()
+  if (Clerk.user) {
 
-if(Clerk.user){
+    auth.innerHTML = `
+      <div class="pill">
+        👤 ${Clerk.user.firstName || "Player"}
+      </div>
+    `
 
-auth.innerHTML=`
-<div class="pill">
-👤 ${Clerk.user.firstName || "Player"}
-</div>
-`
+  } else {
 
-}else{
+    const button = document.createElement("button")
 
-const button=document.createElement("button")
+    button.textContent = "Sign In"
 
-button.textContent="Sign In"
+    button.onclick = async () => {
 
-button.onclick=()=>{
+      await Clerk.openSignIn({
+        appearance: {
+          variables: {
+            colorPrimary: "#2563eb"
+          }
+        }
+      })
 
-window.location.href=`https://accounts.clerk.dev/sign-in?redirect_url=${encodeURIComponent(window.location.href)}`
+    }
 
-}
+    auth.appendChild(button)
 
-auth.appendChild(button)
-
-}
-
-}catch(error){
-
-auth.innerHTML=`
-<div class="pill">
-Guest Mode
-</div>
-`
-
-}
+  }
 
 }
