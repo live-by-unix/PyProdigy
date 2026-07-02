@@ -1,9 +1,1 @@
-# PyProdigy Ultimate
-
-## Start
-
-```bash
-cd public
-python -m http.server 3000
-```
-
+Just a simple passion project
